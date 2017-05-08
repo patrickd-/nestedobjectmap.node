@@ -1,6 +1,6 @@
 {
   "name": "nested-object-map",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Deep convert a nested Object into a ES6 Map.",
   "homepage": "https://github.com/patrickd-/nestedobjectmap.node",
   "license": "MIT",

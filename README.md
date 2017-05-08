@@ -4,7 +4,7 @@ Deep convert a nested Object into a [ES6 Map](https://developer.mozilla.org/en-U
 [![Build Status](https://travis-ci.org/patrickd-/nestedobjectmap.node.svg?branch=master)](https://travis-ci.org/patrickd-/nestedobjectmap.node) [![Coverage Status](https://coveralls.io/repos/github/patrickd-/wrappitmq.node/badge.svg)](https://coveralls.io/github/patrickd-/nestedobjectmap.node) [![Dependencies Status](https://david-dm.org/patrickd-/nestedobjectmap.node.svg)](https://david-dm.org/patrickd-/nestedobjectmap.node)
 
 ```
-npm install nestedobjectmap
+npm install nested-object-map
 ```
 
 ## Usage
@@ -12,7 +12,7 @@ npm install nestedobjectmap
 ### Convert nested Object to Map
 
 ```javascript
-const NestedObjectMap = require('nestedobjectmap');
+const NestedObjectMap = require('nested-object-map');
 
 const config = new NestedObjectMap({
   api: {
