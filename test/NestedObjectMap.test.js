@@ -74,4 +74,15 @@ describe('NestedObjectMap', () => {
     objectMap.get('ref').should.deepEqual(object);
   });
 
+  it('should ignore non-object values', () => {
+    let objectMap = new NestedObjectMap();
+    objectMap = new NestedObjectMap(null);
+    objectMap = new NestedObjectMap(0);
+    objectMap = new NestedObjectMap(1);
+    objectMap = new NestedObjectMap(false);
+    objectMap = new NestedObjectMap(true);
+    objectMap = new NestedObjectMap(['asd']);
+    objectMap.has('0').should.equal(false);
+  });
+
 });

@@ -1,5 +1,5 @@
 # NestedObjectMap Class
-Deep convert a nested Object into a ES6 Map
+Deep convert a nested Object into a [ES6 Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map)
 
 [![Build Status](https://travis-ci.org/patrickd-/nestedobjectmap.node.svg?branch=master)](https://travis-ci.org/patrickd-/nestedobjectmap.node) [![Coverage Status](https://coveralls.io/repos/github/patrickd-/nestedobjectmap.node/badge.svg)](https://coveralls.io/github/patrickd-/nestedobjectmap.node) [![Dependencies Status](https://david-dm.org/patrickd-/nestedobjectmap.node.svg)](https://david-dm.org/patrickd-/nestedobjectmap.node)
 
