@@ -9,7 +9,9 @@ npm install nested-object-map
 
 ## Usage
 
-### Convert nested Object to Map
+### new NestedObjectMap([object])
+
+The NestedObjectMap Class extends [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) and behaves the same way with the difference that the passed objects field values will be mapped. If the object is nested (containing more instances of [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)) references to those objects will be mapped as well. Sub-objects will be iterated and their fields will be mapped just the same but their field names will be prefixed with its path. Cyclic references and other values (eg. arrays) will be mapped as reference.
 
 ```javascript
 const NestedObjectMap = require('nested-object-map');
@@ -31,9 +33,9 @@ console.dir(authToken); // "secret"
 console.dir(token); // "secret"
 ```
 
-### Add another object to Map
+### NestedObjectMap.addObject([object])
 
-You could add (or "merge") another objects references to the Map.
+You can add (or "deep merge") another objects fields to the Map.
 
 ```javascript
 config.addObject({
