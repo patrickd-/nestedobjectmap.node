@@ -52,6 +52,8 @@ console.dir(config.get('api.http.auth.token')); // "secret"
 
 ## Use case
 
+It can help you to access values contained deep within nested objects more easily and without the need of too many safe guards. It's probably most useful when dealing with nested objects with unreliable structure.
+
 ```javascript
 
 if (object && object.api && object.api.http && object.api.http.auth) {
