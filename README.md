@@ -11,7 +11,7 @@ npm install nested-object-map
 
 ### new NestedObjectMap([object])
 
-The NestedObjectMap Class extends [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) and behaves the same way with the difference that the passed objects field values will be mapped. If the object is nested (containing more instances of [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)) references to those objects will be mapped as well. Sub-objects will be iterated and their fields will be mapped just the same but their field names will be prefixed with its path. Cyclic references and other values (eg. arrays) will be mapped as reference.
+The NestedObjectMap Class extends [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) and behaves the same way with the difference that the passed objects field values will be mapped. If the object is nested (containing more instances of [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)) references to those objects will be mapped as well. Sub-objects will be iterated and their fields will be mapped just the same but their field names will be prefixed with its path. Cyclic references and other objects (eg. arrays) will be mapped as reference. Scalar values are mapped as scalar values, setting them on the map will not change the original objects value.
 
 ```javascript
 const NestedObjectMap = require('nested-object-map');
