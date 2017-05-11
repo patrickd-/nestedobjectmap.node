@@ -33,12 +33,13 @@ console.dir(authToken); // "secret"
 console.dir(token); // "secret"
 ```
 
-### NestedObjectMap.addObject([object])
+### NestedObjectMap.mapObject([object])
 
-You can add (or "deep merge") another objects fields to the Map.
+You can map another objects fields to the Map (similar to a "deep merge").
+This is the same method the constructor calls.
 
 ```javascript
-config.addObject({
+config.mapObject({
   api: {
     http: {
       port: 8080

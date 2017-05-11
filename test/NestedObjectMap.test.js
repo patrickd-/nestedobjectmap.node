@@ -27,7 +27,7 @@ describe('NestedObjectMap', () => {
         },
       },
     };
-    config.addObject(object2);
+    config.mapObject(object2);
     config.get('api.http.port').should.equal(object2.api.http.port);
     config.get('api.http.auth.token').should.equal(object.api.http.auth.token);
   });
@@ -75,14 +75,46 @@ describe('NestedObjectMap', () => {
   });
 
   it('should ignore non-object values', () => {
-    let objectMap = new NestedObjectMap();
-    objectMap = new NestedObjectMap(null);
-    objectMap = new NestedObjectMap(0);
-    objectMap = new NestedObjectMap(1);
-    objectMap = new NestedObjectMap(false);
-    objectMap = new NestedObjectMap(true);
-    objectMap = new NestedObjectMap(['asd']);
-    objectMap.has('0').should.equal(false);
+    new NestedObjectMap().size.should.equal(0);
+    new NestedObjectMap(null).size.should.equal(0);
+    new NestedObjectMap(0).size.should.equal(0);
+    new NestedObjectMap(1).size.should.equal(0);
+    new NestedObjectMap(false).size.should.equal(0);
+    new NestedObjectMap(true).size.should.equal(0);
+    new NestedObjectMap(['asd']).size.should.equal(0);
+  });
+
+  describe('mapObject', () => {
+    it('should map another object to the Map', () => {
+      const object1 = {
+        a: { b: [1, 2, 3], c: false },
+      };
+      const objectMap = new NestedObjectMap(object1);
+      const object2 = {
+        a: { c: true, d: 1 },
+      };
+      objectMap.mapObject(object2);
+      objectMap.has('a').should.equal(true);
+      objectMap.get('a.b').should.deepEqual(object1.a.b);
+      objectMap.get('a.c').should.equal(object2.a.c);
+      objectMap.get('a.d').should.equal(object2.a.d);
+    });
+  });
+  describe('addObject', () => {
+    it('should work the same way as mapObject', () => {
+      const object1 = {
+        a: { b: [1, 2, 3], c: false },
+      };
+      const objectMap = new NestedObjectMap(object1);
+      const object2 = {
+        a: { c: true, d: 1 },
+      };
+      objectMap.mapObject(object2);
+      objectMap.has('a').should.equal(true);
+      objectMap.get('a.b').should.deepEqual(object1.a.b);
+      objectMap.get('a.c').should.equal(object2.a.c);
+      objectMap.get('a.d').should.equal(object2.a.d);
+    });
   });
 
 });
