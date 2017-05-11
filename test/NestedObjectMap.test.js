@@ -3,7 +3,7 @@ require('should');
 
 const NestedObjectMap = require('..');
 
-describe('NestedObjectMap', () => {
+describe('new NestedObjectMap()', () => {
 
   it('should correctly work on readme example code', () => {
     const object = {
@@ -84,7 +84,7 @@ describe('NestedObjectMap', () => {
     new NestedObjectMap(['asd']).size.should.equal(0);
   });
 
-  describe('mapObject', () => {
+  describe('.mapObject()', () => {
     it('should map another object to the Map', () => {
       const object1 = {
         a: { b: [1, 2, 3], c: false },
@@ -100,7 +100,8 @@ describe('NestedObjectMap', () => {
       objectMap.get('a.d').should.equal(object2.a.d);
     });
   });
-  describe('addObject', () => {
+
+  describe('.addObject()', () => {
     it('should work the same way as mapObject', () => {
       const object1 = {
         a: { b: [1, 2, 3], c: false },
@@ -114,6 +115,19 @@ describe('NestedObjectMap', () => {
       objectMap.get('a.b').should.deepEqual(object1.a.b);
       objectMap.get('a.c').should.equal(object2.a.c);
       objectMap.get('a.d').should.equal(object2.a.d);
+    });
+  });
+
+  describe('.clear()', () => {
+    it('should clear the cyclic reference Set', () => {
+      const object = {
+        a: { b: [1, 2, 3], c: false },
+      };
+      const objectMap = new NestedObjectMap(object);
+      objectMap.clear();
+      objectMap.size.should.equal(0);
+      objectMap.mapObject(object);
+      objectMap.size.should.not.equal(0);
     });
   });
 
