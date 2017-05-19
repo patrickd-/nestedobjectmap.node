@@ -72,6 +72,38 @@ describe('new NestedObjectMap()', () => {
     const objectMap = new NestedObjectMap(object);
     objectMap.has('ref').should.equal(true);
     objectMap.get('ref').should.deepEqual(object);
+    objectMap.has('ref.ref').should.equal(false);
+  });
+
+  it('should not ignore non-cyclic duplicate references', () => {
+    const ref = { a: 1 };
+    const object = {
+      a: { ref },
+      b: { ref },
+    };
+    const objectMap = new NestedObjectMap(object);
+    objectMap.has('a.ref.a').should.equal(true);
+    objectMap.has('b.ref.a').should.equal(true);
+    objectMap.get('a.ref.a').should.deepEqual(ref.a);
+    objectMap.get('b.ref.a').should.deepEqual(ref.a);
+  });
+
+  it('should not ignore duplicate values', () => {
+    const object = {
+      a: null,
+      b: null,
+      c: 1,
+      d: 1,
+      e: 'a',
+      f: 'a',
+    };
+    const objectMap = new NestedObjectMap(object);
+    objectMap.has('a').should.equal(true);
+    objectMap.has('b').should.equal(true);
+    objectMap.has('c').should.equal(true);
+    objectMap.has('d').should.equal(true);
+    objectMap.has('e').should.equal(true);
+    objectMap.has('f').should.equal(true);
   });
 
   it('should ignore non-object values', () => {
@@ -119,7 +151,7 @@ describe('new NestedObjectMap()', () => {
   });
 
   describe('.clear()', () => {
-    it('should clear the cyclic reference Set', () => {
+    it('should properly clear the map', () => {
       const object = {
         a: { b: [1, 2, 3], c: false },
       };
