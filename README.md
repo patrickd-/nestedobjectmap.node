@@ -68,6 +68,23 @@ const token = config.get('api.http.auth.token');
 
 ```
 
+```javascript
+const NestedObjectMap = require('nested-object-map');
+const objects = new NestedObjectMap([
+  {
+    id: 1,
+    tags: [ 'a', 'b' ]
+  },
+  {
+    id: 2,
+    tags: [ 'b', 'c' ]
+  },
+]);
+console.dir(objects.get('id')); // [ 1, 2 ]
+console.dir(objects.get('tags')); // [ [ 'a', 'b' ], [ 'b', 'c' ] ]
+console.dir(objects.get('0.tags')); // [ 'a', 'b' ]
+```
+
 ## Related
 
 There are similar modules for flat objects:

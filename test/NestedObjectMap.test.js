@@ -30,9 +30,22 @@ describe('new NestedObjectMap()', () => {
     config.mapObject(object2);
     config.get('api.http.port').should.equal(object2.api.http.port);
     config.get('api.http.auth.token').should.equal(object.api.http.auth.token);
+    const objects = new NestedObjectMap([
+      {
+        id: 1,
+        tags: [ 'a', 'b' ]
+      },
+      {
+        id: 2,
+        tags: [ 'b', 'c' ]
+      },
+    ]);
+    objects.get('id').should.deepEqual([1,  2]);
+    objects.get('tags').should.deepEqual([['a',  'b'],  ['b',  'c']]);
+    objects.get('0.tags').should.deepEqual(['a',  'b']);
   });
 
-  it('should correctly convert nested object to map', () => {
+  it('should correctly convert nested object to map',  () => {
     const object = {
       a: 1,
       b: 0,
@@ -54,16 +67,25 @@ describe('new NestedObjectMap()', () => {
     objectMap.get('c.cb').should.equal(object.c.cb);
   });
 
-  it('should not deep map arrays with index as key', () => {
-    const object = {
-      a: { b: [1, 2, 3] },
-    };
+  it('should deep map arrays with index as key', () => {
+    const object = [[[{ a: 1 }, { a: 2 }], { a: 1 }, { a: 2 }], { a: 1 }, { a: 2 }];
     const objectMap = new NestedObjectMap(object);
-    objectMap.has('a').should.equal(true);
-    objectMap.get('a').should.deepEqual(object.a);
-    objectMap.has('a.b').should.equal(true);
-    objectMap.get('a.b').should.deepEqual(object.a.b);
-    objectMap.has('a.b.0').should.equal(false);
+    objectMap.has('0').should.equal(true);
+    objectMap.has('0.0').should.equal(true);
+    objectMap.has('0.0.0').should.equal(true);
+    objectMap.has('1').should.equal(true);
+    objectMap.has('1.a').should.equal(true);
+    objectMap.has('2').should.equal(true);
+    objectMap.has('0.0.1').should.equal(true);
+    objectMap.has('0.0.a').should.equal(true);
+    objectMap.get('0').should.deepEqual(object[0]);
+    objectMap.get('0.0').should.deepEqual(object[0][0]);
+    objectMap.get('0.0.0').should.deepEqual(object[0][0][0]);
+    objectMap.get('1').should.deepEqual(object[1]);
+    objectMap.get('1.a').should.deepEqual(object[1].a);
+    objectMap.get('2').should.deepEqual(object[2]);
+    objectMap.get('0.0.1').should.deepEqual(object[0][0][1]);
+    objectMap.get('0.0.1.a').should.deepEqual(object[0][0][1].a);
   });
 
   it('should deep map arrays of objects as array of object field values', () => {
@@ -124,14 +146,13 @@ describe('new NestedObjectMap()', () => {
     objectMap.has('f').should.equal(true);
   });
 
-  it('should ignore non-object values', () => {
+  it('should not try to map non-object values', () => {
     new NestedObjectMap().size.should.equal(0);
     new NestedObjectMap(null).size.should.equal(0);
     new NestedObjectMap(0).size.should.equal(0);
     new NestedObjectMap(1).size.should.equal(0);
     new NestedObjectMap(false).size.should.equal(0);
     new NestedObjectMap(true).size.should.equal(0);
-    new NestedObjectMap(['asd']).size.should.equal(0);
   });
 
   describe('.mapObject()', () => {
