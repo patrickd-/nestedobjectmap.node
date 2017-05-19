@@ -33,19 +33,19 @@ describe('new NestedObjectMap()', () => {
     const objects = new NestedObjectMap([
       {
         id: 1,
-        tags: [ 'a', 'b' ]
+        tags: ['a', 'b'],
       },
       {
         id: 2,
-        tags: [ 'b', 'c' ]
+        tags: ['b', 'c'],
       },
     ]);
-    objects.get('id').should.deepEqual([1,  2]);
-    objects.get('tags').should.deepEqual([['a',  'b'],  ['b',  'c']]);
-    objects.get('0.tags').should.deepEqual(['a',  'b']);
+    objects.get('id').should.deepEqual([1, 2]);
+    objects.get('tags').should.deepEqual([['a', 'b'], ['b', 'c']]);
+    objects.get('0.tags').should.deepEqual(['a', 'b']);
   });
 
-  it('should correctly convert nested object to map',  () => {
+  it('should correctly convert nested object to map', () => {
     const object = {
       a: 1,
       b: 0,
