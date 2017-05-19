@@ -54,7 +54,7 @@ describe('new NestedObjectMap()', () => {
     objectMap.get('c.cb').should.equal(object.c.cb);
   });
 
-  it('should not deep map arrays', () => {
+  it('should not deep map arrays with index as key', () => {
     const object = {
       a: { b: [1, 2, 3] },
     };
@@ -64,6 +64,24 @@ describe('new NestedObjectMap()', () => {
     objectMap.has('a.b').should.equal(true);
     objectMap.get('a.b').should.deepEqual(object.a.b);
     objectMap.has('a.b.0').should.equal(false);
+  });
+
+  it('should deep map arrays of objects as array of object field values', () => {
+    const object = {
+      a: [
+        { b: 1, c: [{ d: 1 }, { d: 2 }] },
+        { b: 2, c: [{ d: 1 }, { d: 3 }] },
+        { b: 3, c: [{ d: 1 }, { d: 4 }] },
+      ],
+    };
+    const objectMap = new NestedObjectMap(object);
+    objectMap.has('a').should.equal(true);
+    objectMap.has('a.b').should.equal(true);
+    objectMap.get('a').should.deepEqual(object.a);
+    objectMap.get('a.b').should.deepEqual([1, 2, 3]);
+    objectMap.has('a.c').should.equal(true);
+    objectMap.has('a.c.d').should.equal(true);
+    objectMap.get('a.c.d').should.deepEqual([1, 2, 1, 3, 1, 4]);
   });
 
   it('should ignore cyclic references', () => {
