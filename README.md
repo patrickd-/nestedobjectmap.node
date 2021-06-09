@@ -75,3 +75,5 @@ There are similar modules for flat objects:
 - [ES6-Mapify](https://github.com/jlipps/mapify)
 - [object2map](https://github.com/christophehurpeau/object2map)
 - [object-to-map](https://github.com/vadimdemedes/object-to-map)
+
+Also, consider using the [optional chaining (?.) operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining) if that's available to you. It offers similar advantages and does not require installing any packages to use.
